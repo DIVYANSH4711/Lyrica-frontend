@@ -8,14 +8,13 @@ function App() {
     <div className="h-screen w-full p-4 bg-black">
       <div className="flex h-full w-full space-x-0.5">
         {/* Sidebar */}
-        <div className="flex flex-col justify-center space-y-3 items-center h-full w-1/16 bg-[#FED2E2] rounded-l-3xl ">
+        <div className="flex flex-col justify-center space-y-3 items-center h-full w-1/16 bg-[#F0A04B] rounded-l-3xl ">
           {/* Home Link */}
           <NavLink
             to="/home"
             onClick={() => setSection('home')}
             className={({ isActive }) =>
-              `flex justify-center items-center w-3/5 border-3 aspect-square rounded-tr-4xl rounded-bl-4xl transition-all duration-200 ${
-                isActive ? 'bg-white text-black border-pink-300' : 'bg-black text-white'
+              `flex justify-center items-center w-3/5 border-3 aspect-square rounded-tr-3xl rounded-bl-3xl transition-all duration-200 ${isActive ? 'bg-white text-black border-pink-300' : 'bg-black text-white'
               }`
             }
           >
@@ -40,8 +39,7 @@ function App() {
             to="/search"
             onClick={() => setSection('search')}
             className={({ isActive }) =>
-              `flex justify-center items-center w-3/5 border-3 aspect-square rounded-tl-4xl rounded-br-4xl transition-all duration-200 ${
-                isActive ? 'bg-white text-black border-cyan-300' : 'bg-black text-white'
+              `flex justify-center items-center w-3/5 border-3 aspect-square rounded-tl-3xl rounded-br-3xl transition-all duration-200 ${isActive ? 'bg-white text-black border-[#C68EFD]' : 'bg-black text-white'
               }`
             }
           >
@@ -66,8 +64,7 @@ function App() {
             to="/developers"
             onClick={() => setSection('developers')}
             className={({ isActive }) =>
-              `flex justify-center items-center w-3/5 border-3 aspect-square rounded-tr-4xl rounded-bl-4xl transition-all duration-200 ${
-                isActive ? 'bg-white text-black border-violet-400' : 'bg-black text-white '
+              `flex justify-center items-center w-3/5 border-3 aspect-square rounded-tr-3xl rounded-bl-3xl transition-all duration-200 ${isActive ? 'bg-white text-black border-[#8F87F1]' : 'bg-black text-white '
               }`
             }
           >
@@ -89,7 +86,11 @@ function App() {
         </div>
 
         {/* Main Content Area */}
-        <div className="h-full w-15/16 bg-[#8F87F1] rounded-r-3xl p-4 text-white">
+        <div
+          className={`h-full w-15/16 rounded-r-3xl p-4 text-white
+          ${section === 'home' ? 'bg-[#FCE7C8]' : section === 'search' ? 'bg-[#B1C29E]' : 'bg-[#FADA7A]'}
+          transition-all duration-200
+          `}>
           <Outlet />
         </div>
       </div>
