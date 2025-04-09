@@ -41,7 +41,7 @@ function RecommendSongs() {
          }
       };
    
-      getRecommendations(song.name);
+      getRecommendations(encodeURIComponent(song.name));
    }, [song]);
    
 
