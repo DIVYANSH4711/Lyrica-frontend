@@ -6,6 +6,7 @@ import Home from './components/Home/Home.jsx'
 import Developers from './components/Developers/Developers.jsx'
 import Search from './components/Search/Search.jsx'
 import Redirect from './components/Redirect/Redirect.jsx'
+import RecommendSongs from './components/Search/Recommend/RecommendSongs.jsx'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: '/search',
         element: <Search />,
+      },
+      {
+        path: '/search/recommend/:songName',
+        element: <RecommendSongs />,
       }
     ]
   }
