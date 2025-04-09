@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect, use } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { SongItem } from "../Search.jsx";
 import axios from "axios";
 function RecommendSongs() {
@@ -8,34 +8,42 @@ function RecommendSongs() {
    const [songYear, setSongYear] = useState(null);
    const [songArtists, setSongArtists] = useState([]);
    const [recommendations, setRecommendations] = useState([]);
+   const [song, setSong] = useState(null);
+   const { param } = useParams();
    useEffect(() => {
-      const song = JSON.parse(localStorage.getItem("song"))
-
-      async function getRecommendations(songName) {
-         try {
-            const response = await axios.get(`https://lyrica-i45x.onrender.com/api/recommend/${songName}`)
-            const data = response.data.recommendations;
-            setRecommendations(data);
-         } catch (error) {
-            console.error("Error fetching recommendations:", error);
-         }
-      }
-      if (song) {
-         setSongName(song.name);
-         setSongYear(song.year);
-
-         const cleanedArtists = song.artists
-            .substring(1, song.artists.length - 1)
-            .split(',')
-            .map(artist => artist.trim())
-            .map(artist => artist.substring(1, artist.length - 1));
-         setSongArtists(cleanedArtists);
-
-         getRecommendations(song.name);
+      const storedSong = JSON.parse(localStorage.getItem("song"));
+      if (storedSong) {
+         setSong(storedSong)
       } else {
          navigate("/search");
       }
-   }, []);
+   }, [navigate, param]);
+   
+   useEffect(() => {
+      if (!song || !song.name) return;
+      setRecommendations([])
+      setSongName(song.name);
+      setSongYear(song.year);
+   
+      const cleanedArtists = song.artists
+         .substring(1, song.artists.length - 1)
+         .split(',')
+         .map(artist => artist.trim())
+         .map(artist => artist.substring(1, artist.length - 1));
+      setSongArtists(cleanedArtists);
+   
+      const getRecommendations = async (songName) => {
+         try {
+            const response = await axios.get(`https://lyrica-i45x.onrender.com/api/recommend/${songName}`);
+            setRecommendations(response.data.recommendations);
+         } catch (error) {
+            console.error("Error fetching recommendations:", error);
+         }
+      };
+   
+      getRecommendations(song.name);
+   }, [song]);
+   
 
    return (
       <div className="flex justify-center items-center rounded-2xl w-full h-full bg-gray-200">
@@ -98,7 +106,7 @@ function RecommendSongs() {
                   </div>
                </div>
 
-               <div className="w-full h-1/2 bg-white rounded-lg border border-dashed border-gray-400 flex items-center justify-center text-gray-500 italic">
+               <div className="w-full h-3/5 bg-white rounded-lg border border-dashed border-gray-400 flex items-center justify-center text-gray-500 italic">
                   {
                      recommendations.length === 0 ? (
                         <p className="text-center text-gray-500 font-semibold">Loading recommendations...</p>

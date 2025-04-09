@@ -32,7 +32,7 @@ const router = createBrowserRouter([
         element: <Search />,
       },
       {
-        path: '/search/recommend/:songName',
+        path: '/search/recommend/:param',
         element: <RecommendSongs />,
       }
     ]
