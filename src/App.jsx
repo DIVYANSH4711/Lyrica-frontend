@@ -14,7 +14,7 @@ function App() {
             to="/home"
             onClick={() => setSection('home')}
             className={({ isActive }) =>
-              `flex justify-center items-center w-3/5 border-3 aspect-square rounded-tr-3xl rounded-bl-3xl transition-all duration-200 ${isActive ? 'bg-white text-black border-pink-300' : 'bg-black text-white'
+              `flex justify-center items-center w-3/5 border-3 aspect-square rounded-tr-3xl rounded-bl-3xl transition-all duration-200 ${isActive ? 'bg-white text-black border-black' : 'bg-black text-white'
               }`
             }
           >
@@ -39,7 +39,7 @@ function App() {
             to="/search"
             onClick={() => setSection('search')}
             className={({ isActive }) =>
-              `flex justify-center items-center w-3/5 border-3 aspect-square rounded-tl-3xl rounded-br-3xl transition-all duration-200 ${isActive ? 'bg-white text-black border-[#C68EFD]' : 'bg-black text-white'
+              `flex justify-center items-center w-3/5 border-3 aspect-square rounded-tl-3xl rounded-br-3xl transition-all duration-200 ${isActive ? 'bg-white text-black border-[#000000]' : 'bg-black text-white'
               }`
             }
           >
@@ -64,7 +64,7 @@ function App() {
             to="/developers"
             onClick={() => setSection('developers')}
             className={({ isActive }) =>
-              `flex justify-center items-center w-3/5 border-3 aspect-square rounded-tr-3xl rounded-bl-3xl transition-all duration-200 ${isActive ? 'bg-white text-black border-[#8F87F1]' : 'bg-black text-white '
+              `flex justify-center items-center w-3/5 border-3 aspect-square rounded-tr-3xl rounded-bl-3xl transition-all duration-200 ${isActive ? 'bg-white text-black border-black' : 'bg-black text-white '
               }`
             }
           >
@@ -88,7 +88,7 @@ function App() {
         {/* Main Content Area */}
         <div
           className={`h-full w-15/16 rounded-r-3xl p-4 text-white
-          ${section === 'home' ? 'bg-[#FCE7C8]' : section === 'search' ? 'bg-[#B1C29E]' : 'bg-[#FADA7A]'}
+          ${section === 'home' ? 'bg-[#B1C29E]' : section === 'search' ? 'bg-[#FCE7C8]' : 'bg-[#FADA7A]'}
           transition-all duration-200
           `}>
           <Outlet />
