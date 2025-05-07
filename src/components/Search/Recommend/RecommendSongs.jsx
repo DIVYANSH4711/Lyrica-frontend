@@ -53,8 +53,8 @@ function RecommendSongs() {
           `http://localhost:3000/search?q=${encodeURIComponent(song.name)}`
         );
         const data = await res.json();
-        if (data && data.length > 0 && data[0].preview) {
-          setPreviewUrl(data[0].preview);
+        if (data && data.length > 0) {
+          setPreviewUrl(data[0]);
         }
       } catch (err) {
         console.error("Error fetching preview:", err);
@@ -100,37 +100,25 @@ function RecommendSongs() {
         {/* Content Area */}
         <div className="flex flex-col items-center justify-center h-[calc(100%-4rem)] p-4 space-y-1">
           {/* Top Section */}
-          <div className="flex w-full h-2/5 bg-green-500 rounded-lg overflow-hidden shadow-inner">
-            <div className="w-2/5 bg-amber-300 border-r border-black rounded-l-lg">
-              <div className="flex flex-col items-center justify-center h-full p-4">
-                <div className="w-full h-2/4 flex items-center justify-start space-x-3 ">
-                  <span className="text-3xl font-semibold text-gray-700">{songName}</span>
-                  <span className="text-sm text-gray-600 font-semibold">{songYear}</span>
-                </div>
-                <div className="w-full h-2/4 flex items-start justify-start overflow-y-auto scrollbar-thin scrollbar-corner-gray-700 scrollbar-track-black scrollbar-thumb-gray-500">
-                  {songArtists.length > 0 ? (
-                    <div className="flex flex-col items-start mt-2 text-zinc-600 font-bold text-lg">
-                      {songArtists.map((artist, index) => (
-                        <span key={index}>{artist}</span>
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="text-sm text-gray-600">No artists available</p>
-                  )}
-                </div>
-              </div>
-            </div>
+          <div className="flex w-full h-2/5 justify-start bg-green-500 rounded-lg overflow-hidden shadow-inner">
 
             {/* Replace this area with Audio Player */}
-            <div className="w-3/5 bg-amber-300 flex items-center justify-center p-4">
+            <div className="w-full bg-amber-300 flex items-center justify-start p-4">
               {previewUrl ? (
-                <div className="bg-white rounded-xl shadow-lg p-4 w-full max-w-md text-center">
-                  <p className="text-lg font-semibold text-gray-800 mb-2">Preview</p>
-                  <audio controls className="w-full rounded-lg">
-                    <source src={previewUrl} type="audio/mpeg" />
-                    Your browser does not support the audio element.
-                  </audio>
+                <div className="bg-white rounded-xl flex shadow-lg p-4 w-full max-w-md text-center">
+                  <img 
+                    src={previewUrl.image} 
+                    alt="" 
+                    className="h-20 "
+                  />
+                  <p className="font-bold text-black ">{previewUrl.title}</p>
+                  {
+                    songArtists.length > 0 && (
+                      <p className="text-gray-700 font-semibold">{songArtists.join(", ")}</p>
+                    )
+                  }
                 </div>
+
               ) : (
                 <p className="text-gray-700 font-semibold">No preview available</p>
               )}
